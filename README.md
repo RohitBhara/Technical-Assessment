@@ -21,3 +21,12 @@ ansible 2.9.6
   $ ubuntu-drivers devices       # Install GPU drivers on ubuntu 
   $ sudo apt-get install <recommended drivers> 
   $ nvidia-smi        # See GPUs 
+
+  3) Install Docker and Nvidia Docker through creating ansible playbook 
+
+   $ docker_install.yaml 
+   
+   $ localhost ansible_connection=local    # In my situation add this line on local machine to run ansible playbook locally  /etc/ansible/hosts
+   $ ansible-playbook docker_install.yaml     # Play ansible playbook
+
+
