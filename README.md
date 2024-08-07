@@ -27,6 +27,6 @@ ansible 2.9.6
    $ docker_install.yaml 
    
    $ localhost ansible_connection=local    # In my situation add this line on local machine to run ansible playbook locally  /etc/ansible/hosts
-   $ ansible-playbook docker_install.yaml     # Play ansible playbook
+   $ ansible-playbook docker_install.yaml     # Play ansible
 
 
