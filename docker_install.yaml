@@ -1,6 +1,6 @@
----
-- name: Install Docker on Ubuntu
-  hosts: all
+   ---
+- name: Install Docker and NVIDIA Container Toolkit on Ubuntu
+  hosts: localhost
   become: yes
   tasks:
     - name: Update apt cache
@@ -45,3 +45,34 @@
           - docker-buildx-plugin
           - docker-compose-plugin
         state: present
+
+    - name: Add NVIDIA GPG key
+      get_url:
+        url: https://nvidia.github.io/libnvidia-container/gpgkey
+        dest: /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+        mode: '0644'
+      become: yes
+
+    - name: Add NVIDIA Container Toolkit repository
+      get_url:
+        url: https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list
+        dest: /etc/apt/sources.list.d/nvidia-container-toolkit.list
+        mode: '0644'
+      become: yes
+
+    - name: Update apt cache again for NVIDIA repository
+      apt:
+        update_cache: yes
+
+    - name: Install NVIDIA Container Toolkit
+      apt:
+        name: nvidia-container-toolkit
+        state: present
+
+    - name: Configure NVIDIA runtime for Docker
+      command: nvidia-ctk runtime configure --runtime=docker
+
+    - name: Restart Docker service
+      service:
+        name: docker
+        state: restarted
