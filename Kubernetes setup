@@ -1,24 +1,20 @@
-
----
 - name: Install kubernetes cluster
   hosts: localhost
-  become: yes
+  become: 'yes'
   tasks:
-   - name: Install required packages
-     apt:
-     name:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - software-properties-common
-    state: present
-    update_cache: yes
-
+    - name: Install required packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+        update_cache: 'yes'
 - name: Add Kubernetes APT repository
   apt_repository:
-    repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+    repo: 'deb https://apt.kubernetes.io/ kubernetes-xenial main'
     state: present
-
 - name: Install Kubernetes packages
   apt:
     name:
@@ -26,19 +22,18 @@
       - kubeadm
       - kubectl
     state: present
-
- - name: Initialize Kubernetes Master
-  command: kubeadm init 
+- name: Initialize Kubernetes Master
+  command: kubeadm init
   register: init_output
-  when: inventory_hostname in groups['localhost']
-
+  when: 'inventory_hostname in groups[''localhost'']'
 - name: Copy kubeconfig to home directory
   copy:
-    content: "{{ init_output.stdout_lines | join('\n') }}"
+    content: |-
+      {{ init_output.stdout_lines | join('
+      ') }}
     dest: ~/.kube/config
-    mode: 0600
-  when: inventory_hostname in groups['localhost']
-
+    mode: 384
+  when: 'inventory_hostname in groups[''localhost'']'
 - name: Apply Calico network plugin
-  command: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
-  when: inventory_hostname in groups['localhost']
+  command: 'kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml'
+  when: 'inventory_hostname in groups[''localhost'']'
