@@ -1,5 +1,10 @@
 
 ---
+ name: Install kubernetes cluster
+  hosts: localhost
+  become: yes
+  tasks:
+
 - name: Install required packages
   apt:
     name:
