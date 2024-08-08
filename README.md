@@ -22,7 +22,7 @@ ansible 2.9.6
   $ sudo apt-get install <recommended drivers> 
   $ nvidia-smi        # See GPUs 
 
-  3) Install Docker and Nvidia Docker through creating ansible playbook 
+  3) Install Docker and Nvidia Container Toolkit through creating ansible playbook 
 
    $ docker_install.yaml 
    
