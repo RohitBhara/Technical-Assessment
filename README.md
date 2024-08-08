@@ -1,5 +1,8 @@
-Assignment 
- 1) Install Ansible setup and dependencies 
+### Assignment 
+
+ 1) Install Ansible setup and dependencies
+
+    
 $ sudo apt update
 $ sudo apt install software-properties-common
 $ sudo add-apt-repository --yes --update ppa:ansible/ansible
