@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gpu-example-deployment
+  namespace: gpu-operator
+spec:
+  replicas: 3  # Number of instances
+  selector:
+    matchLabels:
+      app: gpu-example
+  template:
+    metadata:
+      labels:
+        app: gpu-example
+    spec:
+      containers:
+      - name: gpu-container
+        image: nvidia/cuda:11.0-base
+        resources:
+          limits:
+            nvidia.com/gpu: 1  # Request 1 GPU per container
+          requests:
+            cpu: "1"
+            memory: "2Gi"
+        ports:
+        - containerPort: 8080
