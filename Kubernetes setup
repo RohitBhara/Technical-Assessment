@@ -1,13 +1,12 @@
 
 ---
- name: Install kubernetes cluster
+- name: Install kubernetes cluster
   hosts: localhost
   become: yes
   tasks:
-
-- name: Install required packages
-  apt:
-    name:
+   - name: Install required packages
+     apt:
+     name:
       - apt-transport-https
       - ca-certificates
       - curl
